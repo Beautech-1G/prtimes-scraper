@@ -19,7 +19,11 @@ from bs4 import BeautifulSoup
 # =========================================
 
 KEYWORDS = [
+    "ドライヤー",
+    "アイロン",
+    "シャワー",
     "ファインバブル",
+    "歯ブラシ",
 ]
 
 MANUAL_RUN_DATE = None  # 自動実行時はNone
