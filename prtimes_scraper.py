@@ -146,9 +146,20 @@ def parse_article(url):
     published = parse_date(date_text)
 
     company = ""
-    m = re.search(r"(株式会社[^\s]+)", body)
-    if m:
-        company = m.group(1)
+
+# ▼① 見出し直下から取得（最優先）
+    meta_company = soup.select_one("a[href*='/company_id/']")
+    if meta_company:
+        company = normalize_space(meta_company.get_text())
+
+# ▼② fallback（本文から抽出）
+    if not company:
+        m = re.search(r"([^\s]{1,30}株式会社)", body)
+        if m:
+            company = m.group(1)
+
+# ▼③ 不要文字削除
+    company = company.replace("のプレスリリース", "")  
 
     return {
         "url": url,
