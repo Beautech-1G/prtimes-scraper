@@ -1,5 +1,8 @@
 name: PR TIMES Weekly Scraper
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: '0 0 * * 1'  # 毎週月曜 09:00 JST
