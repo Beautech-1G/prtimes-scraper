@@ -2,6 +2,7 @@
 # PR TIMES 週次収集スクリプト（GitHub Actions対応版）
 # =========================
 
+import shutil
 import os
 import re
 import time
@@ -218,15 +219,14 @@ def run():
     )
 
     df.to_csv(csv_path, index=False, encoding="utf-8-sig")
+    
+    DRIVE_DIR = "./drive_backup"
+    
 
-    import shutil
-
-DRIVE_DIR = "./drive_backup"
-os.makedirs(DRIVE_DIR, exist_ok=True)
-
-shutil.copy(csv_path, f"{DRIVE_DIR}/{os.path.basename(csv_path)}")
-
-print("保存完了:", csv_path)
+    os.makedirs(DRIVE_DIR, exist_ok=True)
+    
+    shutil.copy(csv_path, f"{DRIVE_DIR}/{os.path.basename(csv_path)}")
+    print("保存完了:", csv_path)
 
 # =========================================
 
