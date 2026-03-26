@@ -1,0 +1,28 @@
+name: PR TIMES Weekly Scraper
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # 毎週月曜 09:00 JST
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - run: pip install beautifulsoup4 lxml pandas requests
+
+      - run: python prtimes_scraper.py
+
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "update csv" || echo "no changes"
+          git push
